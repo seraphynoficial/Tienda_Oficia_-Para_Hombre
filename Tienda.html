@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seraphyn</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+
+<style>
+
+/* FUENTES */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Poppins:wght@300;400;600&display=swap');
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+transition:0.3s;
+}
+
+/* TEMA */
+:root{
+--bg:#ffffff;
+--text:#000;
+--card:#f5f5f5;
+--primary:#000;
+--secondary:#333;
+--headerText:#fff;
+--footerText:#fff;
+}
+
+.dark{
+--bg:#0a0a0a;
+--text:#ffffff;
+--card:#1a1a1a;
+--primary:#ffffff;
+--secondary:#cccccc;
+--headerText:#000;
+--footerText:#000;
+}
+
+body{
+background:var(--bg);
+color:var(--text);
+}
+
+/* HEADER */
+header{
+background:linear-gradient(90deg,var(--primary),var(--secondary));
+color:var(--headerText);
+text-align:center;
+padding:50px 20px;
+}
+
+header h1{
+font-family:'Playfair Display',serif;
+font-size:48px;
+color:var(--headerText);
+}
+
+header p{
+color:var(--headerText);
+}
+
+/* NAV */
+nav{
+display:flex;
+justify-content:center;
+gap:25px;
+background:var(--card);
+padding:15px;
+position:sticky;
+top:0;
+z-index:1000;
+}
+
+nav a{
+text-decoration:none;
+color:var(--primary);
+font-weight:600;
+}
+
+/* EMOJIS */
+.emoji{
+font-size:22px;
+}
+
+/* BOT√ìN TEMA */
+.theme-toggle{
+position:fixed;
+bottom:20px;
+left:20px;
+z-index:3000;
+}
+
+.theme-toggle button{
+padding:10px 15px;
+border:none;
+border-radius:25px;
+background:var(--primary);
+color:var(--bg);
+cursor:pointer;
+}
+
+/* SECCIONES */
+section{
+padding:60px 20px;
+text-align:center;
+}
+
+h2{
+font-family:'Playfair Display',serif;
+font-size:32px;
+color:var(--primary);
+}
+
+/* ===== MEJORAS VISUALES PRODUCTOS ===== */
+
+.products{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:35px; /* M√ÅS ESPACIO ENTRE PRODUCTOS */
+max-width:1200px;
+margin:auto;
+}
+
+/* TARJETAS M√ÅS PRO */
+.card{
+background:var(--card);
+border-radius:20px;
+padding:20px;
+box-shadow:0 8px 20px rgba(0,0,0,0.12);
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+/* IMAGEN PRINCIPAL */
+.card img{
+width:100%;
+height:300px;
+object-fit:cover;
+border-radius:15px;
+border:3px solid var(--primary); /* BORDE üî• */
+}
+
+/* MINI GALER√çA */
+.gallery{
+display:flex;
+gap:8px;
+margin-top:10px;
+justify-content:center;
+flex-wrap:wrap;
+}
+
+.gallery img{
+width:60px;
+height:60px;
+object-fit:cover;
+border-radius:10px;
+cursor:pointer;
+border:2px solid transparent;
+transition:0.3s;
+}
+
+.gallery img:hover{
+border:2px solid var(--primary);
+transform:scale(1.05);
+}
+
+/* BOTONES */
+button{
+padding:10px 18px;
+border:none;
+border-radius:30px;
+cursor:pointer;
+margin-top:5px;
+}
+
+.add-btn{
+background:var(--primary);
+color:var(--bg);
+}
+
+.buy-btn{
+background:#25D366;
+color:white;
+}
+
+/* SELECT */
+.color-select{
+margin-top:10px;
+padding:5px;
+border-radius:10px;
+}
+
+/* CARRITO */
+.cart-icon{
+position:fixed;
+top:20px;
+right:20px;
+background:var(--primary);
+color:var(--bg);
+padding:12px 18px;
+border-radius:30px;
+cursor:pointer;
+z-index:2000;
+}
+
+.cart-panel{
+position:fixed;
+right:-380px;
+top:0;
+width:340px;
+height:100%;
+background:var(--card);
+padding:20px;
+transition:0.4s;
+z-index:3000;
+overflow-y:auto;
+}
+
+.cart-panel.open{
+right:0;
+}
+
+.cart-overlay{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.2);
+opacity:0;
+pointer-events:none;
+}
+
+.cart-overlay.active{
+opacity:1;
+pointer-events:auto;
+}
+
+/* FOOTER */
+footer{
+background:var(--primary);
+color:var(--footerText);
+text-align:center;
+padding:20px;
+}
+
+</style>
+
+<body>
+
+<div id="overlay" class="cart-overlay" onclick="closeCart()"></div>
+
+<div class="theme-toggle">
+<button onclick="toggleTheme()">&#127769;</button>
+</div>
+
+<audio id="soundAdd" src="Agregar_Al_Carrito.mp3"></audio>
+<audio id="soundBuy" src="Comprar.mp3"></audio>
+<audio id="bgMusic" src="musica.mp3" loop></audio>
+
+<div class="cart-icon" onclick="toggleCart()">
+&#128717; (<span id="count">0</span>)
+</div>
+
+<div class="cart-panel" id="cartPanel">
+<h3>&#128722; Carrito</h3>
+<div id="cartItems"></div>
+<div>Total: $<span id="total">0</span></div>
+
+<button class="buy-btn" onclick="sendCartWhatsApp()">
+&#128172; Enviar Pedido
+</button>
+
+<button onclick="closeCart()">&#10060; Cerrar</button>
+</div>
+
+<header>
+<h1>Seraphyn</h1>
+<p>&#10024; Viste Tu Poder Eleva Tu Juego &#10024;</p>
+</header>
+
+<nav>
+<a href="#hombre">&#128084; Hombre</a>
+<a href="#deportes">&#127936; Deportes</a>
+<a href="#contacto">&#128241; Contacto</a>
+</nav>
+<!-- HOMBRE -->
+<section id="hombre">
+<h2 class="emoji">&#128084; Hombre</h2>
+
+<h3>Ropa</h3>
+
+<h3>Accesorios</h3>
+
+<h3>Gorras Stars</h3>
+<!-- 1 -->
+<div class="products">
+<div class="card">
+<img id="prod1" src="https://i.postimg.cc/m2M3YXKF/Gorra-Angel-Sad-Boyz-Querubin-En-Manos.jpg">
+
+<div class="gallery">
+<img src="https://i.postimg.cc/m2M3YXKF/Gorra-Angel-Sad-Boyz-Querubin-En-Manos.jpg" onclick="changeImage('prod1', this.src)">
+<img src="https://i.postimg.cc/YqgN6nTF/Gorra-Angel-Sad-Boyz-Querubin-En-Manos-LD.jpg" onclick="changeImage('prod1', this.src)">
+<img src="https://i.postimg.cc/GhYPF76F/Gorra-Angel-Sad-Boyz-Querubin-En-Manos-LI.jpg" onclick="changeImage('prod1', this.src)">
+</div>
+
+<h3>Gorra Angel Sad Boyz Querubin En Manos</h3>
+<div>$320</div>
+
+<button class="add-btn" onclick="addProduct('Gorra Angel Sad Boyz Querubin En Manos',320)">Agregar al carrito</button>
+<button class="buy-btn" onclick="buyNow('Gorra Angel Sad Boyz Querubin En Manos',320)">Comprar ahora</button>
+</div>
+</div>
+
+<!-- 2 -->
+<div class="products">
+<div class="card">
+<img id="prod2" src="https://i.postimg.cc/pLHfqQHV/Gorra-Barbas-Hats-Ct-Murekami.jpg">
+
+<div class="gallery">
+<img src="https://i.postimg.cc/pLHfqQHV/Gorra-Barbas-Hats-Ct-Murekami.jpg" onclick="changeImage('prod2', this.src)">
+<img src="https://i.postimg.cc/g2Hv5wz9/Gorra-Barbas-Hats-Ct-Murekami-LD.jpg" onclick="changeImage('prod2', this.src)">
+<img src="https://i.postimg.cc/ht19wJDW/Gorra-Barbas-Hats-Ct-Murekami-LI.jpg" onclick="changeImage('prod2', this.src)">
+</div>
+
+<h3>Gorra Barbas Hats Ct Murekami</h3>
+<div>$320</div>
+
+<button class="add-btn" onclick="addProduct('Gorra Barbas Hats Ct Murekami',320)">Agregar al carrito</button>
+<button class="buy-btn" onclick="buyNow('Gorra Barbas Hats Ct Murekami',320)">Comprar ahora</button>
+</div>
+</div>
+
+<!-- 3 -->
+<div class="products">
+<div class="card">
+<img id="prod3" src="https://i.postimg.cc/Sxh6DLhb/Gorra-Crystal-Los-Angeles-Cross.jpg">
+
+<div class="gallery">
+<img src="https://i.postimg.cc/Sxh6DLhb/Gorra-Crystal-Los-Angeles-Cross.jpg" onclick="changeImage('prod3', this.src)">
+<img src="https://i.postimg.cc/htBLp8BW/Gorra-Crystal-Los-Angeles-Cross-LD.jpg" onclick="changeImage('prod3', this.src)">
+<img src="https://i.postimg.cc/Njc6p8cQ/Gorra-Crystal-Los-Angeles-Cross-LI.jpg" onclick="changeImage('prod3', this.src)">
+</div>
+
+<h3>Gorra Crystal Los Angeles Cross</h3>
+<div>$320</div>
+
+<button class="add-btn" onclick="addProduct('Gorra Crystal Los Angeles Cross',320)">Agregar al carrito</button>
+<button class="buy-btn" onclick="buyNow('Gorra Crystal Los Angeles Cross',320)">Comprar ahora</button>
+</div>
+</div>
+
+<!-- 4 -->
+<div class="products">
+<div class="card">
+<img id="prod4" src="https://i.postimg.cc/pV3Ynbcn/Gorra-Dandy-Hats-X-Rude-Awakening.jpg">
+
+<div class="gallery">
+<img src="https://i.postimg.cc/pV3Ynbcn/Gorra-Dandy-Hats-X-Rude-Awakening.jpg" onclick="changeImage('prod4', this.src)">
+<img src="https://i.postimg.cc/CLDCGP9B/Gorra-Dandy-Hats-X-Rude-Awakening-LD.jpg" onclick="changeImage('prod4', this.src)">
+<img src="https://i.postimg.cc/wTJ5Xfnt/Gorra-Dandy-Hats-X-Rude-Awakening-LI.jpg" onclick="changeImage('prod4', this.src)">
+</div>
+
+<h3>Gorra Dandy Hats X Rude Awakening</h3>
+<div>$320</div>
+
+<button class="add-btn" onclick="addProduct('Gorra Dandy Hats X Rude Awakening',320)">Agregar al carrito</button>
+<button class="buy-btn" onclick="buyNow('Gorra Dandy Hats X Rude Awakening',320)">Comprar ahora</button>
+</div>
+</div>
+
+<!-- 5 -->
+<div class="products">
+<div class="card">
+<img id="prod5" src="https://i.postimg.cc/Njk1Vysg/Gorra-I-Hate-This-fake-Love.jpg">
+
+<div class="gallery">
+<img src="https://i.postimg.cc/Njk1Vysg/Gorra-I-Hate-This-fake-Love.jpg" onclick="changeImage('prod5', this.src)">
+<img src="https://i.postimg.cc/fRfxF3zT/Gorra-I-Hate-This-fake-Love-LD.jpg" onclick="changeImage('prod5', this.src)">
+<img src="https://i.postimg.cc/13rpTgm3/Gorra-I-Hate-This-fake-Love-LI.jpg" onclick="changeImage('prod5', this.src)">
+</div>
+
+<h3>Gorra I Hate This Fake Love</h3>
+<div>$320</div>
+
+<button class="add-btn" onclick="addProduct('Gorra I Hate This Fake Love',320)">Agregar al carrito</button>
+<button class="buy-btn" onclick="buyNow('Gorra I Hate This Fake Love',320)">Comprar ahora</button>
+</div>
+</div>
+
+<!-- 6 -->
+<div class="products">
+<div class="card">
+<img id="prod6" src="https://i.postimg.cc/SN8L6THG/Gorra-Los-Angeles-Clouds-In-Love.jpg">
+
+<div class="gallery">
+<img src="https://i.postimg.cc/SN8L6THG/Gorra-Los-Angeles-Clouds-In-Love.jpg" onclick="changeImage('prod6', this.src)">
+<img src="https://i.postimg.cc/7Y713sj9/Gorra-Los-Angeles-Clouds-In-Love-LD.jpg" onclick="changeImage('prod6', this.src)">
+<img src="https://i.postimg.cc/FscbyWwG/Gorra-Los-Angeles-Clouds-In-Love-LI.jpg" onclick="changeImage('prod6', this.src)">
+</div>
+
+<h3>Gorra Los Angeles Clouds In Love</h3>
+<div>$320</div>
+
+<button class="add-btn" onclick="addProduct('Gorra Los Angeles Clouds In Love',320)">Agregar al carrito</button>
+<button class="buy-btn" onclick="buyNow('Gorra Los Angeles Clouds In Love',320)">Comprar ahora</button>
+</div>
+</div>
+
+<!-- 7 -->
+<div class="products">
+<div class="card">
+<img id="prod7" src="https://i.postimg.cc/L6fktCGQ/Gorra-Los-Angeles-Red-Roses.jpg">
+
+<div class="gallery">
+<img src="https://i.postimg.cc/L6fktCGQ/Gorra-Los-Angeles-Red-Roses.jpg" onclick="changeImage('prod7', this.src)">
+<img src="https://i.postimg.cc/RVf17s2b/Gorra-Los-Angeles-Red-Roses-LD.jpg" onclick="changeImage('prod7', this.src)">
+<img src="https://i.postimg.cc/htBLp8qb/Gorra-Los-Angeles-Red-Roses-LI.jpg" onclick="changeImage('prod7', this.src)">
+</div>
+
+<h3>Gorra Los Angeles Red Roses</h3>
+<div>$320</div>
+
+<button class="add-btn" onclick="addProduct('Gorra Los Angeles Red Roses',320)">Agregar al carrito</button>
+<button class="buy-btn" onclick="buyNow('Gorra Los Angeles Red Roses',320)">Comprar ahora</button>
+</div>
+</div>
+
+<!-- 8 -->
+<div class="products">
+<div class="card">
+<img id="prod8" src="https://i.postimg.cc/Vk8qD9cV/Gorra-Sad-B-yz.jpg">
+
+<div class="gallery">
+<img src="https://i.postimg.cc/Vk8qD9cV/Gorra-Sad-B-yz.jpg" onclick="changeImage('prod8', this.src)">
+<img src="https://i.postimg.cc/W1vGXmPx/Gorra-Sad-B-yz-LD.jpg" onclick="changeImage('prod8', this.src)">
+<img src="https://i.postimg.cc/Bn0TM50W/Gorra-Sad-B-yz-LI.jpg" onclick="changeImage('prod8', this.src)">
+</div>
+
+<h3>Gorra Sad Boyz</h3>
+<div>$320</div>
+
+<button class="add-btn" onclick="addProduct('Gorra Sad Boyz',320)">Agregar al carrito</button>
+<button class="buy-btn" onclick="buyNow('Gorra Sad Boyz',320)">Comprar ahora</button>
+</div>
+</div>
+
+<!-- 9 -->
+<div class="products">
+<div class="card">
+<img id="prod9" src="https://i.postimg.cc/cLSRX7NT/Gorras-Los-Angeles-Vago-Style-Red.jpg">
+
+<div class="gallery">
+<img src="https://i.postimg.cc/cLSRX7NT/Gorras-Los-Angeles-Vago-Style-Red.jpg" onclick="changeImage('prod9', this.src)">
+<img src="https://i.postimg.cc/vZsr37dq/Gorras-Los-Angeles-Vago-Style-Red-LD.jpg" onclick="changeImage('prod9', this.src)">
+<img src="https://i.postimg.cc/0ysYcGqH/Gorras-Los-Angeles-Vago-Style-Red-LI.jpg" onclick="changeImage('prod9', this.src)">
+</div>
+
+<h3>Gorra Los Angeles Vago Style Red</h3>
+<div>$320</div>
+
+<button class="add-btn" onclick="addProduct('Gorra Los Angeles Vago Style Red',320)">Agregar al carrito</button>
+<button class="buy-btn" onclick="buyNow('Gorra Los Angeles Vago Style Red',320)">Comprar ahora</button>
+</div>
+</div>
+
+</section>
+
+<!-- DEPORTES -->
+<section id="deportes">
+<h2 class="emoji">&#127936; Deportes</h2>
+
+<h3>Balones</h3>
+<div class="products">
+<div class="card">
+
+<!-- Bal®Æn Basketball 1 -->
+
+<h4>Balones Basketball</h4>
+
+<div class="products">
+<div class="card">
+
+<img id="prod12" src="https://i.postimg.cc/HkXH83Jb/Balon-Puma-Basketball.jpg">
+
+<h3>Balon Puma Basketball</h3>
+<div>$450</div>
+
+<button class="add-btn" onclick="addProduct('Balon Puma Basketball',450)">Agregar al carrito</button>
+<button class="buy-btn" onclick="buyNow('Balon Puma Basketball',450)">Comprar ahora</button>
+
+</div>
+</div>
+
+<!-- Bal®Æn Basketball 2 -->
+<div class="products">
+<div class="card">
+
+<img id="prod13" src="https://i.postimg.cc/T3gG5Qyc/mini-Balon-Basketball.jpg">
+
+<h3>Mini Balon Basketball</h3>
+<div>$80</div>
+
+<button class="add-btn" onclick="addProduct('Mini Balon Basketball',80)">Agregar al carrito</button>
+<button class="buy-btn" onclick="buyNow('Mini Balon Basketball',80)">Comprar ahora</button>
+
+</div>
+</div>
+
+<!-- Bal®Æn F®≤tbol -->
+<div class="products">
+<div class="card">
+
+<h4>Balones Futbol</h4>
+
+<img id="prod14" src="https://i.postimg.cc/HLtgBx92/Balon-Futbol-Spiderman.webp">
+
+<h3>Balon Futbol Spiderman</h3>
+<div>$200</div>
+
+<button class="add-btn" onclick="addProduct('Balon Futbol Spiderman',200)">Agregar al carrito</button>
+<button class="buy-btn" onclick="buyNow('Balon Futbol Spiderman',200)">Comprar ahora</button>
+
+</div>
+</div>
+
+
+<!-- Borrador 1 -->
+
+<h4>Borradores O Gomas</h4>
+
+<div class="products">
+<div class="card">
+
+<img id="prod15" src="https://i.postimg.cc/Vv2Qdbz1/borrador-Balon-Futbol-Clasico.jpg">
+
+<h3>Borrador Balon Futbol Clasico</h3>
+<div>$15</div>
+
+<button class="add-btn" onclick="addProduct('Borrador Balon Futbol De Clasico',15)">Agregar al carrito</button>
+<button class="buy-btn" onclick="buyNow('Borrador Balon Futbol Clasico',15)">Comprar ahora</button>
+
+</div>
+</div>
+
+<!-- Borrador 2 -->
+<div class="products">
+<div class="card">
+
+<img id="prod16" src="https://i.postimg.cc/Y0TKhmtt/borrador-Balon-Voleyball-Clasico.jpg">
+
+<h3>Borrador Balon Voleyball Clasico</h3>
+<div>$15</div>
+
+<button class="add-btn" onclick="addProduct('Borrador Balon Voleyball Clasico',15)">Agregar al carrito</button>
+<button class="buy-btn" onclick="buyNow('Borrador Balon Voleyball Clasico',15)">Comprar ahora</button>
+
+</div>
+</div>
+
+
+<!-- Pulsera -->
+<div class="products">
+<div class="card">
+
+<h4>Pulseras</h4>
+
+<img id="prod17" src="https://i.postimg.cc/rmpvj9mq/Pulsera-Love-Basketball.jpg">
+
+<h3>Pulsera Love Basketball</h3>
+<div>$25</div>
+
+<button class="add-btn" onclick="addProduct('Pulsera Love Basketball',25)">Agregar al carrito</button>
+<button class="buy-btn" onclick="buyNow('Pulsera Love Basketball',25)">Comprar ahora</button>
+
+</div>
+</div>
+
+</section>
+
+</div>
+</div>
+
+</section>
+
+<section id="contacto">
+<h2>&#128241; Contacto</h2>
+<p>&#128222; Tel: +52 271 127 9621</p>
+<p>&#128247; Instagram: @seraphyn.oficial</p>
+<p>&#128101; Facebook: seraphyn.oficial</p>
+</section>
+
+<footer>
+&#169; 2026 Seraphyn Oficial
+</footer>
+
+<script>
+/* CAMBIAR IMAGEN DE GALER√çA */
+function changeImage(id,src){
+document.getElementById(id).src = src;
+}
+
+/* MUSICA */
+window.addEventListener("click",function(){
+document.getElementById("bgMusic").volume=0.2;
+document.getElementById("bgMusic").play();
+},{once:true});
+
+/* TEMA */
+function toggleTheme(){
+document.body.classList.toggle("dark");
+}
+
+/* BAL√ìN */
+function getBallColor(){
+let select=document.getElementById("colorBall");
+return select.options[select.selectedIndex].text;
+}
+
+window.addEventListener("DOMContentLoaded",function(){
+changeBallColor();
+});
+
+function changeBallColor(){
+let color=document.getElementById("colorBall").value;
+let img=document.getElementById("ballImg");
+
+if(color==="naranja"){
+img.src="https://picsum.photos/400/500?random=3";
+}else if(color==="negro"){
+img.src="https://picsum.photos/400/500?random=4";
+}else{
+img.src="https://picsum.photos/400/500?random=5";
+}
+}
+
+/* CARRITO */
+let cart=[];
+
+function addProduct(name,price){
+cart.push({name,price});
+updateCart();
+document.getElementById("soundAdd").play();
+}
+
+function updateCart(){
+let container=document.getElementById("cartItems");
+container.innerHTML="";
+let total=0;
+
+cart.forEach((item,index)=>{
+total+=item.price;
+container.innerHTML+=`
+<div>
+${item.name} - $${item.price}
+<button onclick="removeItem(${index})">&#10060;</button>
+</div>`;
+});
+
+document.getElementById("total").innerText=total;
+document.getElementById("count").innerText=cart.length;
+}
+
+function removeItem(index){
+cart.splice(index,1);
+updateCart();
+}
+
+function toggleCart(){
+document.getElementById("cartPanel").classList.add("open");
+document.getElementById("overlay").classList.add("active");
+}
+
+function closeCart(){
+document.getElementById("cartPanel").classList.remove("open");
+document.getElementById("overlay").classList.remove("active");
+}
+
+function buyNow(name,price){
+document.getElementById("soundBuy").play();
+let message=`Hola, quiero comprar:%0A- ${name} $${price}`;
+window.open(`https://wa.me/522711279621?text=${message}`,"_blank");
+}
+
+function sendCartWhatsApp(){
+if(cart.length===0){
+alert("Tu carrito est√° vac√≠o");
+return;
+}
+
+let message="Hola, quiero este pedido:%0A";
+
+cart.forEach(item=>{
+message+=`- ${item.name} $${item.price}%0A`;
+});
+
+message+=`%0ATotal: $${document.getElementById("total").innerText}`;
+
+document.getElementById("soundBuy").play();
+window.open(`https://wa.me/522711279621?text=${message}`,"_blank");
+}
+
+</script>
+
+</html>
