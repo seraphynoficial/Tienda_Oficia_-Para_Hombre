@@ -90,7 +90,7 @@ font-weight:600;
 font-size:22px;
 }
 
-/* BOTÓN TEMA */
+/* BOTÃ“N TEMA */
 .theme-toggle{
 position:fixed;
 bottom:20px;
@@ -124,12 +124,12 @@ color:var(--primary);
 .products{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:35px; /* MÁS ESPACIO ENTRE PRODUCTOS */
+gap:35px; /* MÃS ESPACIO ENTRE PRODUCTOS */
 max-width:1200px;
 margin:auto;
 }
 
-/* TARJETAS MÁS PRO */
+/* TARJETAS MÃS PRO */
 .card{
 background:var(--card);
 border-radius:20px;
@@ -148,10 +148,10 @@ width:100%;
 height:300px;
 object-fit:cover;
 border-radius:15px;
-border:3px solid var(--primary); /* BORDE 🔥 */
+border:3px solid var(--primary); /* BORDE ðŸ”¥ */
 }
 
-/* MINI GALERÍA */
+/* MINI GALERÃA */
 .gallery{
 display:flex;
 gap:8px;
@@ -481,11 +481,167 @@ padding:20px;
 <section id="deportes">
 <h2 class="emoji">&#127936; Deportes</h2>
 
+<h3>Jerseys</h3>
+
+<!-- Chris Paul -->
+<div class="products">
+<div class="card">
+
+<img id="jersey1" src="https://i.postimg.cc/y6Q6kV6H/Jersey-De-Chris-Paul-De-Los-San-Antonio-Spurs-Version-Oscura.jpg">
+
+<div class="gallery">
+<img src="https://i.postimg.cc/y6Q6kV6H/Jersey-De-Chris-Paul-De-Los-San-Antonio-Spurs-Version-Oscura.jpg" onclick="changeImage('jersey1', this.src)">
+</div>
+
+<h3>Jersey De Chris Paul De Los San Antonio Spurs</h3>
+<div>$200</div>
+
+<button class="add-btn" onclick="addProduct('Jersey De Chris Paul De Los San Antonio Spurs',200)">Agregar al carrito</button>
+<button class="buy-btn" onclick="buyNow('Jersey De Chris Paul De Los San Antonio Spurs',200)">Comprar ahora</button>
+
+</div>
+</div>
+
+<!-- Raiders -->
+<div class="products">
+<div class="card">
+
+<img id="jersey2" src="https://i.postimg.cc/WpWph2p3/Jersey-De-Las-Vegas-Raiders-Version-Oscura.jpg">
+
+<div class="gallery">
+<img src="https://i.postimg.cc/WpWph2p3/Jersey-De-Las-Vegas-Raiders-Version-Oscura.jpg" onclick="changeImage('jersey2', this.src)">
+</div>
+
+<h3>Jersey De Las Vegas Raiders</h3>
+<div>$200</div>
+
+<button class="add-btn" onclick="addProduct('Jersey De Las Vegas Raiders',200)">Agregar al carrito</button>
+<button class="buy-btn" onclick="buyNow('Jersey De Las Vegas Raiders',200)">Comprar ahora</button>
+
+</div>
+</div>
+
+<!-- LeBron -->
+<div class="products">
+<div class="card">
+
+<img id="jersey3" src="https://i.postimg.cc/L4C4nH4h/Jersey-De-Le-Bron-James-De-Los-Angeles-Lakers-Version-Morada.jpg">
+
+<div class="gallery">
+<img src="https://i.postimg.cc/L4C4nH4h/Jersey-De-Le-Bron-James-De-Los-Angeles-Lakers-Version-Morada.jpg" onclick="changeImage('jersey3', this.src)">
+</div>
+
+<h3>Jersey De Le Bron James De Los Angeles Lakers</h3>
+<div>$200</div>
+
+<button class="add-btn" onclick="addProduct('Jersey De Le Bron James De Los Angeles Lakers',200)">Agregar al carrito</button>
+<button class="buy-btn" onclick="buyNow('Jersey De Le Bron James De Los Angeles Lakers',200)">Comprar ahora</button>
+
+</div>
+</div>
+
+<!-- Hornets -->
+<div class="products">
+<div class="card">
+
+<img id="jersey4" src="https://i.postimg.cc/gcScnYcj/Jersey-De-Los-Charlotte-Hornets-Version-Morada.jpg">
+
+<div class="gallery">
+<img src="https://i.postimg.cc/gcScnYcj/Jersey-De-Los-Charlotte-Hornets-Version-Morada.jpg" onclick="changeImage('jersey4', this.src)">
+</div>
+
+<h3>Jersey De Los Charlotte Hornets</h3>
+<div>$200</div>
+
+<button class="add-btn" onclick="addProduct('Jersey De Los Charlotte Hornets',200)">Agregar al carrito</button>
+<button class="buy-btn" onclick="buyNow('Jersey De Los Charlotte Hornets',200)">Comprar ahora</button>
+
+</div>
+</div>
+
+<!-- Bulls -->
+<div class="products">
+<div class="card">
+
+<img id="jersey5" src="https://i.postimg.cc/XNHNpVNv/Jersey-De-Los-Chicago-Bulls-Version-Oscura.jpg">
+
+<div class="gallery">
+<img src="https://i.postimg.cc/XNHNpVNv/Jersey-De-Los-Chicago-Bulls-Version-Oscura.jpg" onclick="changeImage('jersey5', this.src)">
+</div>
+
+<h3>Jersey De Los Chicago Bulls</h3>
+<div>$200</div>
+
+<button class="add-btn" onclick="addProduct('Jersey De Los Chicago Bulls',200)">Agregar al carrito</button>
+<button class="buy-btn" onclick="buyNow('Jersey De Los Chicago Bulls',200)">Comprar ahora</button>
+
+</div>
+</div>
+
+<!-- Vince Carter -->
+<div class="products">
+<div class="card">
+
+<img id="jersey6" src="https://i.postimg.cc/h4y4fS4V/Jersey-De-Vince-Carter-De-Los-Toronto-Raptors-Version-Morada.jpg">
+
+<div class="gallery">
+<img src="https://i.postimg.cc/h4y4fS4V/Jersey-De-Vince-Carter-De-Los-Toronto-Raptors-Version-Morada.jpg" onclick="changeImage('jersey6', this.src)">
+</div>
+
+<h3>Jersey De Vince Carter De Los Toronto Raptors</h3>
+<div>$200</div>
+
+<button class="add-btn" onclick="addProduct('Jersey De Vince Carter De Los Toronto Raptors',200)">Agregar al carrito</button>
+<button class="buy-btn" onclick="buyNow('Jersey De Vince Carter De Los Toronto Raptors',200)">Comprar ahora</button>
+
+</div>
+</div>
+
+<!-- Kawhi Leonard -->
+<div class="products">
+<div class="card">
+
+<img id="jersey7" src="https://i.postimg.cc/BZYZXqZ1/Jersey-Kawhi-Leonard-Los-Angeles-Clippers-Version-Clara.jpg">
+
+<div class="gallery">
+<img src="https://i.postimg.cc/BZYZXqZ1/Jersey-Kawhi-Leonard-Los-Angeles-Clippers-Version-Clara.jpg" onclick="changeImage('jersey7', this.src)">
+<img src="https://i.postimg.cc/DySvGtmq/Jersey-Kawhi-Leonard-Los-Angeles-Clippers-Version-Oscura.jpg" onclick="changeImage('jersey7', this.src)">
+</div>
+
+<h3>Jersey Kawhi Leonard Los Angeles Clippers</h3>
+<div>$200</div>
+
+<button class="add-btn" onclick="addProduct('Jersey Kawhi Leonard Los Angeles Clippers',200)">Agregar al carrito</button>
+<button class="buy-btn" onclick="buyNow('Jersey Kawhi Leonard Los Angeles Clippers',200)">Comprar ahora</button>
+
+</div>
+</div>
+
+<!-- Michael Jordan -->
+<div class="products">
+<div class="card">
+
+<img id="jersey8" src="https://i.postimg.cc/7Y5HzpbS/Jersey-Michael-Jordan-De-Chicago-Bulls-Version-Clara.jpg">
+
+<div class="gallery">
+<img src="https://i.postimg.cc/7Y5HzpbS/Jersey-Michael-Jordan-De-Chicago-Bulls-Version-Clara.jpg" onclick="changeImage('jersey8', this.src)">
+<img src="https://i.postimg.cc/QxF87RVJ/Jersey-Michael-Jordan-De-Chicago-Bulls-Version-Oscura.jpg" onclick="changeImage('jersey8', this.src)">
+</div>
+
+<h3>Jersey Michael Jordan De Chicago Bulls</h3>
+<div>$200</div>
+
+<button class="add-btn" onclick="addProduct('Jersey Michael Jordan De Chicago Bulls',200)">Agregar al carrito</button>
+<button class="buy-btn" onclick="buyNow('Jersey Michael Jordan De Chicago Bulls',200)">Comprar ahora</button>
+
+</div>
+</div>  
+  
 <h3>Balones</h3>
 <div class="products">
 <div class="card">
 
-<!-- Bal��n Basketball 1 -->
+<!-- Bal¨®n Basketball 1 -->
 
 <h4>Balones Basketball</h4>
 
@@ -503,7 +659,7 @@ padding:20px;
 </div>
 </div>
 
-<!-- Bal��n Basketball 2 -->
+<!-- Bal¨®n Basketball 2 -->
 <div class="products">
 <div class="card">
 
@@ -518,7 +674,7 @@ padding:20px;
 </div>
 </div>
 
-<!-- Bal��n F��tbol -->
+<!-- Bal¨®n F¨²tbol -->
 <div class="products">
 <div class="card">
 
@@ -606,7 +762,7 @@ padding:20px;
 </footer>
 
 <script>
-/* CAMBIAR IMAGEN DE GALERÍA */
+/* CAMBIAR IMAGEN DE GALERÃA */
 function changeImage(id,src){
 document.getElementById(id).src = src;
 }
@@ -622,7 +778,7 @@ function toggleTheme(){
 document.body.classList.toggle("dark");
 }
 
-/* BALÓN */
+/* BALÃ“N */
 function getBallColor(){
 let select=document.getElementById("colorBall");
 return select.options[select.selectedIndex].text;
@@ -695,7 +851,7 @@ window.open(`https://wa.me/522711279621?text=${message}`,"_blank");
 
 function sendCartWhatsApp(){
 if(cart.length===0){
-alert("Tu carrito está vacío");
+alert("Tu carrito estÃ¡ vacÃ­o");
 return;
 }
 
